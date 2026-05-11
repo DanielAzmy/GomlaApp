@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A2E1F8932FB089C50006E7C1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8922FB089C50006E7C1 /* SDWebImage */; };
+		A2E1F8952FB089C50006E7C1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A2E1F82A2FAB5D310006E7C1 /* GomlaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GomlaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E1F8952FB089C50006E7C1 /* SDWebImageMapKit in Frameworks */,
+				A2E1F8932FB089C50006E7C1 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = GomlaApp;
 			packageProductDependencies = (
+				A2E1F8922FB089C50006E7C1 /* SDWebImage */,
+				A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */,
 			);
 			productName = GomlaApp;
 			productReference = A2E1F82A2FAB5D310006E7C1 /* GomlaApp.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = A2E1F8212FAB5D310006E7C1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A2E1F82B2FAB5D310006E7C1 /* Products */;
 			projectDirPath = "";
@@ -345,6 +357,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A2E1F8922FB089C50006E7C1 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A2E1F8222FAB5D310006E7C1 /* Project object */;
 }

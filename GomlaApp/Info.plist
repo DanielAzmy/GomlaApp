@@ -2,6 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>UIAppFonts</key>
+    <array>
+        <string>BalooBhaijaan2-SemiBold.ttf</string>
+        <string>BalooBhaijaan2-Regular.ttf</string>
+        <string>BalooBhaijaan2-Medium.ttf</string>
+        <string>BalooBhaijaan2-ExtraBold.ttf</string>
+        <string>BalooBhaijaan2-Bold.ttf</string>
+        <string>DINNextLTArabic-Medium.ttf</string>
+        <string>DINNextLTArabic-Regular.ttf</string>
+        <string>DINNextLTArabic-Bold.ttf</string>
+        <string>Cairo-Black.ttf</string>
+        <string>Cairo-Bold.ttf</string>
+        <string>Cairo-ExtraLight.ttf</string>
+        <string>Cairo-Light.ttf</string>
+        <string>Cairo-Regular.ttf</string>
+        <string>Cairo-SemiBold.ttf</string>
+        <string>avenir-next-bold.ttf</string>
+        <string>avenir-next-italic.ttf</string>
+        <string>avenir-next-regular.ttf</string>
+        <string>avenir-next-thin.ttf</string>
+        <string>SSTArabic-Bold.ttf</string>
+        <string>SSTArabic-Light.ttf</string>
+        <string>SSTArabic-Medium.ttf</string>
+        <string>SSTArabic-Roman.ttf</string>
+        <string>Halan-Bold.ttf</string>
+        <string>Halan-Medium.ttf</string>
+        <string>Halan-Regular.ttf</string>
+        <string>Halan-SemiBold.ttf</string>
+    </array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
