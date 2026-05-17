@@ -11,6 +11,19 @@
 		A2E1F8952FB089C50006E7C1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A2BE105B2FB3641200FADE47 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A2E1F82A2FAB5D310006E7C1 /* GomlaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GomlaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -75,6 +88,7 @@
 				A2E1F8262FAB5D310006E7C1 /* Sources */,
 				A2E1F8272FAB5D310006E7C1 /* Frameworks */,
 				A2E1F8282FAB5D310006E7C1 /* Resources */,
+				A2BE105B2FB3641200FADE47 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -87,6 +101,8 @@
 			packageProductDependencies = (
 				A2E1F8922FB089C50006E7C1 /* SDWebImage */,
 				A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */,
+				A2E1F8E82FB34FE90006E7C1 /* Alamofire */,
+				A2E1F8EA2FB34FE90006E7C1 /* AlamofireDynamic */,
 			);
 			productName = GomlaApp;
 			productReference = A2E1F82A2FAB5D310006E7C1 /* GomlaApp.app */;
@@ -118,6 +134,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				A2E1F8E72FB34FE90006E7C1 /* XCRemoteSwiftPackageReference "alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A2E1F82B2FAB5D310006E7C1 /* Products */;
@@ -367,6 +384,14 @@
 				minimumVersion = 5.21.7;
 			};
 		};
+		A2E1F8E72FB34FE90006E7C1 /* XCRemoteSwiftPackageReference "alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alamofire/alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -379,6 +404,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2E1F8912FB089C50006E7C1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		A2E1F8E82FB34FE90006E7C1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2E1F8E72FB34FE90006E7C1 /* XCRemoteSwiftPackageReference "alamofire" */;
+			productName = Alamofire;
+		};
+		A2E1F8EA2FB34FE90006E7C1 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2E1F8E72FB34FE90006E7C1 /* XCRemoteSwiftPackageReference "alamofire" */;
+			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,19 +7,32 @@
 
 import UIKit
 
+protocol HomeViewProtocol: AnyObject {
+    func showHomeData(_ data: homeDataModel)
+    func showError(_ error: String)
+}
+
 class HomeViewController: UIViewController {
-    
+   
     //MARK: - Variables
     var dataSource: UICollectionViewDiffableDataSource<HomeViewsSections, ItemModel>!
     var vm = HomeViewModel()
+    var presenter: HomePresenter!
     
     //MARK: - UI components
+    private var searchBar: SearchBarView = {
+        let view = SearchBarView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .baseBackground 
+        cv.backgroundColor = .baseBackground
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -29,17 +42,28 @@ class HomeViewController: UIViewController {
         setupConstraints()
         setupCollectionView()
         setupDataSource()
-        updateDataSource()
+//        updateDataSource()
+        setupNavigationBar()
+        
+        presenter = HomePresenter(view: self)
+        presenter.fetchHomeData()
     }
     
     //MARK: - View Functions
     private func setupView(){
         view.addSubview(collectionView)
+        view.addSubview(searchBar)
+        view.backgroundColor = .white
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchBar.heightAnchor.constraint(equalToConstant: 45),
+
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 12),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -58,7 +82,28 @@ class HomeViewController: UIViewController {
         
         collectionView.register(HomeCategoryCell.self, forCellWithReuseIdentifier: HomeCategoryCell.self.description())
         
-        collectionView.register(ViewAllHomeHeaderView.self, forSupplementaryViewOfKind: ViewAllHomeHeaderView.self.description(), withReuseIdentifier: ViewAllHomeHeaderView.self.description())
+        collectionView.register(
+            ViewAllHomeHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ViewAllHomeHeaderView.self.description()
+        )
+    }
+    
+    private func setupNavigationBar() {
+        title = "Gomla"
+        
+        let trailingButton = UIBarButtonItem(
+            image: UIImage(resource: .cart),
+            style: .plain,
+            target: self,
+            action: #selector(didTapCart)
+        )
+        
+        navigationItem.rightBarButtonItem = trailingButton
+    }
+
+    @objc private func didTapCart() {
+        print("Cart tapped")
     }
 }
 
@@ -186,6 +231,16 @@ extension HomeViewController{
         section.contentInsets = sectionInsets
 
         if shouldShowHeader {
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(40)
+            )
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            header.pinToVisibleBounds = true
             section.boundarySupplementaryItems = [header]
         }
 
@@ -204,7 +259,7 @@ extension HomeViewController{
 extension HomeViewController{
     private func setupDataSource(){
         creatDataSource()
-        updateDataSource()
+//        updateDataSource()
     }
     
     private func creatDataSource(){
@@ -229,13 +284,63 @@ extension HomeViewController{
             }
         })
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            if kind == ViewAllHomeHeaderView.self.description(){
-                let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ViewAllHomeHeaderView.self.description(), for: indexPath) as! ViewAllHomeHeaderView
-                cell.configure(title: "Explore Offers")
-                return cell
-            }
-            return UICollectionReusableView()
+                    guard kind == UICollectionView.elementKindSectionHeader else {
+                        return UICollectionReusableView()
+                    }
+                    let header = collectionView.dequeueReusableSupplementaryView(
+                        ofKind: kind,
+                        withReuseIdentifier: ViewAllHomeHeaderView.self.description(),
+                        for: indexPath
+                    ) as! ViewAllHomeHeaderView
+                    
+                    guard let section = self.dataSource.sectionIdentifier(for: indexPath.section) else {
+                        return header
+                    }
+                    switch section {
+                    case .banner:       header.configure(title: "")
+                    case .spceialItems: header.configure(title: "Special Offers")
+                    case .catgories:   header.configure(title: "Categories")
+                    case .bestSeller:   header.configure(title: "Best Sellers")
+                    }
+                    return header
+                }
+    }
+    
+    func updateCategories(_ categories: [CategoryModel]) {
+
+        var snapshot = dataSource.snapshot()
+
+//        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .catgories))
+
+        snapshot.appendSections([.catgories])
+        let newItems = categories.map { ItemModel.category($0) }
+        snapshot.appendItems(newItems, toSection: .catgories)
+
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updateItems(_ categories: [Product]) {
+
+        var snapshot = dataSource.snapshot()
+
+        if !snapshot.sectionIdentifiers.contains(.spceialItems) {
+            snapshot.appendSections([.spceialItems])
         }
+
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .spceialItems))
+
+        let uniqueItems = Array(
+            Dictionary(
+                grouping: categories,
+                by: { $0.id }
+            ).compactMap { $0.value.first }
+        )
+
+        let newItems = uniqueItems.map { ItemModel.specialItem($0) }
+
+        snapshot.appendItems(newItems, toSection: .spceialItems)
+
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func updateDataSource() {
@@ -250,4 +355,15 @@ extension HomeViewController{
             
             dataSource.apply(snapshot, animatingDifferences: false)
         }
+}
+
+extension HomeViewController: HomeViewProtocol{
+    func showHomeData(_ data: homeDataModel) {
+        updateCategories(data.categories)
+        updateItems(data.sections.first?.items.products ?? [])
+    }
+    
+    func showError(_ error: String) {}
+    
+   
 }

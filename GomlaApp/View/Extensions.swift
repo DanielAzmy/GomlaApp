@@ -23,6 +23,10 @@ public extension UIColor{
     class var foundationMainHalanPrimary: UIColor {
         return UIColor(red: 0.00, green: 0.66, blue: 0.44, alpha: 1.00)
     }
+    
+    class var coreAppBackgroundHalanLight1: UIColor {
+        return UIColor(red: 0.98, green: 0.98, blue: 0.99, alpha: 1.00)
+    }
 }
 
 
