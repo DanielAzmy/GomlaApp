@@ -74,3 +74,15 @@ class PrimaryButton: UIButton {
         }
     }
 }
+
+extension Array where Element == Product {
+
+    func removeDuplicates() -> [Product] {
+
+        var seen = Set<String>()
+
+        return filter {
+            seen.insert($0.id).inserted
+        }
+    }
+}

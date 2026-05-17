@@ -13,6 +13,7 @@ class HomeCategoryCell: UICollectionViewCell {
     private var categoryImage: UIImageView = {
        let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.tintColor = .foundationMainHalanPrimary
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -72,14 +73,7 @@ class HomeCategoryCell: UICollectionViewCell {
     //MARK: - Configuration
     func configure(model: CategoryModel){
         let url = URL(string: model.imageUrl)
-        categoryImage.sd_setImage(with: url, placeholderImage: UIImage(systemName: "photo"),options: .retryFailed, completed: {_,error,_,_ in
-            if let error {
-                print(error)
-            } else {
-                print("fldnsklnk")
-            }
-        })
-        
+        categoryImage.sd_setImage(with: url, placeholderImage: UIImage(systemName: "photo"))
         categoryTitle.text = model.name
     }
 }

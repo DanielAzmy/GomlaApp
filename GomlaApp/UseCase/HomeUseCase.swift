@@ -7,7 +7,7 @@
 
 import Foundation
 protocol HomeUseCaseProtocol{
-    func getHomeData(city: String, area: String) async throws -> BaseResponse<homeDataModel>
+    func getHomeData(city: String, area: String) async throws -> BaseResponse<HomeDataModel>
 }
 
 final class HomeUseCase: HomeUseCaseProtocol{
@@ -18,7 +18,7 @@ final class HomeUseCase: HomeUseCaseProtocol{
         self.repository = repository
     }
     
-    func getHomeData(city: String, area: String) async throws -> BaseResponse<homeDataModel> {
+    func getHomeData(city: String, area: String) async throws -> BaseResponse<HomeDataModel> {
         try await repository.getHomeData(city: city, area: area)
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeRepositoryProtocol{
-    func getHomeData(city: String, area: String) async throws -> BaseResponse<homeDataModel>
+    func getHomeData(city: String, area: String) async throws -> BaseResponse<HomeDataModel>
 }
 
 final class HomeRepository: HomeRepositoryProtocol{
@@ -19,7 +19,7 @@ final class HomeRepository: HomeRepositoryProtocol{
         self.apiClient = apiClient
     }
     
-    func getHomeData(city: String, area: String) async throws -> BaseResponse<homeDataModel> {
+    func getHomeData(city: String, area: String) async throws -> BaseResponse<HomeDataModel> {
         let endpoint = HomeEndpoints.home(city: city, area: area)
         return try await apiClient.request(endpoint)
     }
