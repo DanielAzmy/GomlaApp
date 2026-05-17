@@ -23,6 +23,10 @@ public extension UIColor{
     class var foundationMainHalanPrimary: UIColor {
         return UIColor(red: 0.00, green: 0.66, blue: 0.44, alpha: 1.00)
     }
+    
+    class var coreAppBackgroundHalanLight1: UIColor {
+        return UIColor(red: 0.98, green: 0.98, blue: 0.99, alpha: 1.00)
+    }
 }
 
 
@@ -67,6 +71,18 @@ class PrimaryButton: UIButton {
         UIView.animate(withDuration: 0.1) {
             self.transform = .identity
             self.alpha = 1
+        }
+    }
+}
+
+extension Array where Element == Product {
+
+    func removeDuplicates() -> [Product] {
+
+        var seen = Set<String>()
+
+        return filter {
+            seen.insert($0.id).inserted
         }
     }
 }

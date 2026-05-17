@@ -12,7 +12,7 @@ class ViewAllHomeHeaderView: UICollectionReusableView {
     //MARK: - UI components
     private var headerTitle: UILabel = {
        let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .h3
         label.textColor = .black
         label.numberOfLines = 1
         label.textAlignment = .left
@@ -37,7 +37,7 @@ class ViewAllHomeHeaderView: UICollectionReusableView {
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            headerTitle.topAnchor.constraint(equalTo: topAnchor),
+            headerTitle.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             headerTitle.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }

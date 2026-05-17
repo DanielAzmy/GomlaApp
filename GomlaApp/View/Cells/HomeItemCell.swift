@@ -163,10 +163,9 @@ class HomeItemCell: UICollectionViewCell {
     }
     
     //MARK: - Configuration
-    func configure(model: SpecialItemModel){
+    func configure(model: Product ){
         let url = URL(string: model.imageUrl)
         itemImage.sd_setImage(with: url, placeholderImage: UIImage(systemName: "photo"))
-        
         itemName.text = model.title
         if let size = model.size{
             itemSize.text = size
