@@ -27,6 +27,14 @@ public extension UIColor{
     class var coreAppBackgroundHalanLight1: UIColor {
         return UIColor(red: 0.98, green: 0.98, blue: 0.99, alpha: 1.00)
     }
+    
+    class var coreAppContentSecondary: UIColor {
+        return UIColor(red: 0.37, green: 0.38, blue: 0.38, alpha: 1.00)
+    }
+    
+    class var coreAppBorderSeperator: UIColor {
+        return UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+    }
 }
 
 
