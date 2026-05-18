@@ -71,6 +71,7 @@ class HomeViewController: UIViewController {
     
     private func setupCollectionView() {
         registerCells()
+        collectionView.delegate = self
         collectionView.setCollectionViewLayout(makeLayout(), animated: false)
     }
     
@@ -243,6 +244,26 @@ extension HomeViewController{
     }
 }
 
+extension HomeViewController: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        switch item {
+        case .banner(let bannerModel):
+            print(bannerModel.id)
+        case .category(let categoryModel):
+            print(categoryModel.id)
+        case .product(let product):
+            let vc = ProductDetailsViewController(item: product)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    
+}
 
 extension HomeViewController{
     private func setupDataSource(){
