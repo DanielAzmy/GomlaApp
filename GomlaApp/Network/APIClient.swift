@@ -25,24 +25,25 @@ final class APIClient: APIClientProtocol {
     }
     
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
-        return try await withCheckedThrowingContinuation { continuation in
-            session.request(
-                endpoint.url,
-                method: endpoint.method,
-                parameters: endpoint.parameters,
-                encoding: endpoint.encoding,
-                headers: endpoint.headers
-            )
-            .validate(contentType: ["application/json", "application/vnd.github.v3+json"])
-            .responseDecodable(of: T.self) { response in
-                self.logResponse(response, endpoint: endpoint)
-                switch response.result {
-                case .success(let value):
-                    continuation.resume(returning: value)
-                case .failure(let error):
-                    continuation.resume(throwing: self.handleError(error, response: response))
-                }
-            }
+        
+        let response = await session.request(
+            endpoint.url,
+            method: endpoint.method,
+            parameters: endpoint.parameters,
+            encoding: endpoint.encoding,
+            headers: endpoint.headers
+        )
+            .validate()
+            .serializingDecodable(T.self)
+            .response
+        
+        switch response.result {
+            
+        case .success(let value):
+            return value
+            
+        case .failure(let error):
+            throw handleError(error, response: response)
         }
     }
     

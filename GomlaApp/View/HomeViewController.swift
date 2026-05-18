@@ -323,18 +323,36 @@ extension HomeViewController{
 extension HomeViewController: HomeViewProtocol{
     func showHomeData(_ data: HomeDataModel) {
         
+        /// snapshot is the current state of CollectionView
+    
+        /// Diffable datasource compares:
+        /// old snapshot
+        /// new snapshot
+
+        ///Then automatically calculates:
+        /// insertions
+        /// deletions
+        /// moves
+        /// reloads
+        
+        /// A snapshot contains:
+        /// Sections of "HomeViewsSections"
+        /// Items inside sections of "ItemModel"
+        
         var snapshot = NSDiffableDataSourceSnapshot<HomeViewsSections, ItemModel>()
         
         // MARK: - Banner
         
         if !data.banners.isEmpty {
             
+            /// here we append new section to collection view
             snapshot.appendSections([.banner])
             
             let banners = data.banners.map {
                 ItemModel.banner($0)
             }
             
+            /// here we append items to section that we add previuosly
             snapshot.appendItems(banners, toSection: .banner)
         }
         
@@ -380,6 +398,7 @@ extension HomeViewController: HomeViewProtocol{
             snapshot.appendItems(products, toSection: sectionType)
         }
         
+        /// here finaly we apply all changes that we made to snapshot 
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
