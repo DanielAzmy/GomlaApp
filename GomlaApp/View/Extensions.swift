@@ -52,7 +52,7 @@ class PrimaryButton: UIButton {
         titleLabel?.font = .button1
         setTitleColor(.white, for: .normal)
         backgroundColor = .foundationMainHalanPrimary
-        layer.cornerRadius = 14
+        layer.cornerRadius = 18
         heightAnchor.constraint(equalToConstant: 54).isActive = true
         translatesAutoresizingMaskIntoConstraints = false
     }

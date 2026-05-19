@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol HomeUseCaseProtocol{
     func getHomeData(city: String, area: String) async throws -> BaseResponse<HomeDataModel>
 }

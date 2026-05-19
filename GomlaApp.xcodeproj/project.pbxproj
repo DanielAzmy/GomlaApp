@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2BE12822FBC728A00FADE47 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8E82FB34FE90006E7C1 /* Alamofire */; };
 		A2E1F8932FB089C50006E7C1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8922FB089C50006E7C1 /* SDWebImage */; };
 		A2E1F8952FB089C50006E7C1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2E1F8942FB089C50006E7C1 /* SDWebImageMapKit */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2BE12822FBC728A00FADE47 /* Alamofire in Frameworks */,
 				A2E1F8952FB089C50006E7C1 /* SDWebImageMapKit in Frameworks */,
 				A2E1F8932FB089C50006E7C1 /* SDWebImage in Frameworks */,
 			);

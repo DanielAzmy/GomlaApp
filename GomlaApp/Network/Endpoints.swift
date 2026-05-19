@@ -16,20 +16,8 @@ protocol Endpoint {
     var headers: HTTPHeaders? { get }
 }
 
-enum HomeEndpoints: Endpoint{
-    case home(city: String, area: String)
-    var path: String {
-        switch self {
-        case .home(let city, let area):
-            return "talabeyah/home?area=\(area)&city=\(city)"
-        }
-    }
-    var parameters: Parameters? {return nil}
-    var method: Alamofire.HTTPMethod { return.get }
-}
-
 extension Endpoint {
-    var baseURL: String { "https://api-test.halan.io/bff-mobile/ecommerce/v4.1/" }
+    var baseURL: String { "https://api-test.halan.io/" }
     var headers: HTTPHeaders? { ["lat":"30.0595563",
                                  "country": "eg", "long": "31.2996639",
                                  "device": "Mobile;Iphone;arm64;N/A;IOS;26.0.1;90DAFDC7-877B-40DF-B45E-04FE537F6774;en;10800;1775564110;13.3.1;00000000-0000-0000-0000-000000000000",

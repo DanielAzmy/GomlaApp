@@ -8,6 +8,7 @@
 import Foundation
 
 final class HomePresenter{
+    
     private let useCase: HomeUseCaseProtocol
     weak var view: HomeViewProtocol?
     
