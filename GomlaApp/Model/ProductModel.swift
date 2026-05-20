@@ -27,3 +27,4 @@ struct Product: Codable, Sendable, Hashable {
         case size = "parentCategory"
     }
 }
+

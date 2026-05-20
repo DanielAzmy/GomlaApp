@@ -23,5 +23,4 @@ final class HomeRepository: HomeRepositoryProtocol{
         let endpoint = HomeEndpoints.home(city: city, area: area)
         return try await apiClient.request(endpoint)
     }
-    
 }

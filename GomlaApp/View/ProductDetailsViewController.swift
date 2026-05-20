@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol ProductDetailsView: AnyObject {
+    func setProductData(with item: ProductDetailsModel)
+}
+
 class ProductDetailsViewController: UIViewController {
     
     var item: Product
+    private var presenter: ProductDetailsPresenter!
     
     //MARK: - UI components
     private let scrollView: UIScrollView = {
@@ -112,6 +117,8 @@ class ProductDetailsViewController: UIViewController {
         return stack
     }()
     
+    private lazy var addToCartButton = PrimaryButton(title: "Add To Cart")
+    
     init(item: Product) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
@@ -126,15 +133,16 @@ class ProductDetailsViewController: UIViewController {
         setupView()
         setupConstraints()
         setupNavigationBar()
-        setupData()
+        presenter = ProductDetailsPresenter(view: self, id: item.id)
+        presenter.fetchProductData()
     }
     
-
     //MARK: - functions
     
     private func setupView(){
         view.addSubview(scrollView)
         scrollView.addSubview(mainStack)
+        view.addSubview(addToCartButton)
         mainStack.insertArrangedSubview(makeDivider(), at: 4)
         view.backgroundColor = .white
     }
@@ -142,19 +150,24 @@ class ProductDetailsViewController: UIViewController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: addToCartButton.topAnchor, constant:  -16),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            mainStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
-            mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -24),
-            mainStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            mainStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            mainStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
+            mainStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
+            mainStack.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 16),
+            mainStack.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -16),
+            mainStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
+            mainStack.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -32),
+            
+            addToCartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            addToCartButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 16),
+            addToCartButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            addToCartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
             productImages.heightAnchor.constraint(equalToConstant: 400),
             
-            contactView.heightAnchor.constraint(equalToConstant: 80),
+            contactView.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
     
@@ -189,19 +202,21 @@ class ProductDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = trailingButton
     }
     
-    private func setupData(){
-        self.productName.text = item.title
+    @objc private func didTapCart() {
+        print("Cart tapped")
+    }
+}
+
+extension ProductDetailsViewController: ProductDetailsView {
+    func setProductData(with item: ProductDetailsModel) {
+        self.productName.text = item.nameEn
         self.price.text = String(item.price)
-        productImages.configure(images: [item.imageUrl, item.imageUrl], tag: false)
+        productImages.configure(images: item.images, tag: item.isProductHasCfOffer)
         discreptionTitle.text = "Product description"
-        discreption.text = item.sellingUnit
-        
+        discreption.text = item.descriptionEn
         if item.discount > 0 {
             setDiscountAmount(String(item.discount))
         }
     }
     
-    @objc private func didTapCart() {
-        print("Cart tapped")
-    }
 }
