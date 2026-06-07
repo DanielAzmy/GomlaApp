@@ -36,6 +36,7 @@ final class HomePresenter{
                 } catch {
                     await MainActor.run {
                         self.view?.showError(error.localizedDescription)
+                        print(error.localizedDescription)
                     }
                 }
             }

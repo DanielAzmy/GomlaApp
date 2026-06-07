@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     
     //MARK: - UI components
     private var searchBar: SearchBarView = {
-        let view = SearchBarView()
+        let view = SearchBarView(placeholder: "Search at gomla...")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -43,7 +43,6 @@ class HomeViewController: UIViewController {
         setupCollectionView()
         setupDataSource()
         setupNavigationBar()
-        
         presenter = HomePresenter(view: self)
         presenter.fetchHomeData()
     }
@@ -255,7 +254,8 @@ extension HomeViewController: UICollectionViewDelegate{
         case .banner(let bannerModel):
             print(bannerModel.id)
         case .category(let categoryModel):
-            print(categoryModel.id)
+            let vc = CategoryBuilder.build(category: categoryModel)
+            navigationController?.pushViewController(vc, animated: true)
         case .product(let product):
             let vc = ProductDetailsViewController(item: product)
             navigationController?.pushViewController(vc, animated: true)
