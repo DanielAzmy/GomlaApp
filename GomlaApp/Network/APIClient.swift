@@ -37,6 +37,7 @@ final class APIClient: APIClientProtocol {
             .serializingDecodable(T.self)
             .response
         
+        self.logResponse(response, endpoint: endpoint)
         switch response.result {
             
         case .success(let value):

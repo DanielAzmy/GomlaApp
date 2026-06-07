@@ -6,14 +6,17 @@
 //
 
 
-class SubCategoryViewModel {
+struct SubCategoryViewModel {
     var categoryName: String?
-    var isSelected = false
+    var isSelected: Bool
     var subCategoryId: String?
     
-    init(entity: CategoryEntity) {
+    init(entity: CategoryEntity,
+         isSelected: Bool = false) {
+        
         categoryName = entity.nameEn
         subCategoryId = entity.id
+        self.isSelected = isSelected
     }
     
 //    init(entity: CategoriesOfProduct) {

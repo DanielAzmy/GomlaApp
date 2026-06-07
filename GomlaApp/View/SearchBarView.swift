@@ -8,6 +8,8 @@
 import UIKit
 
 class SearchBarView: UIView {
+    
+    var placeholder: String
 
     private var textFieldContainer: UIView = {
        let view = UIView()
@@ -20,7 +22,6 @@ class SearchBarView: UIView {
     
     private var textField: UITextField = {
         let text = UITextField()
-        text.placeholder = "Search at gomla..."
         text.translatesAutoresizingMaskIntoConstraints = false
         
         let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
@@ -38,7 +39,8 @@ class SearchBarView: UIView {
         return text
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, placeholder: String) {
+        self.placeholder = placeholder
         super.init(frame: frame)
         setupView()
         setupConstraints()
@@ -52,6 +54,7 @@ class SearchBarView: UIView {
     private func setupView(){
         addSubview(textFieldContainer)
         textFieldContainer.addSubview(textField)
+        textField.placeholder = placeholder
     }
     
     private func setupConstraints(){
